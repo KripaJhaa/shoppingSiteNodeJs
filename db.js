@@ -42,12 +42,19 @@ const Product = db.define('products', {
     }
 })
 
-const CartTB = db.define('cart', {
-    quantity:{ type:Sequelize.NUMBER}
+const Cart = db.define('carts', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    quant:{ 
+        type:Sequelize.INTEGER
+    }
 })
 
 Product.belongsTo(Vendor)
-CartTB.belongsTo(Product)
+Cart.belongsTo(Product)
 
 
 db.sync()
@@ -55,9 +62,7 @@ db.sync()
     .catch((err) => console.error("Error creating database"))
 
 exports = module.exports = {
-
     Product,
     Vendor,
-    CartTB,
-
+    Cart,
 }
