@@ -33,21 +33,48 @@
             <div class="row" id="product-list">
                    <!-- <ul v-for=" product in products">
                         <li><span>{{product.name}}</span>&nbsp;<span>{{product.price}}</span></li>
-                   </ul>  -->
-                   <div  v-for=" product in products">
-                   <div class="card">
-                        <div class="container">
-                          <h4><b>{{product.name}}</b></h4> 
-                          <p>Details here</p> 
-                          <h4>{{product.price}}</h4>
-                        </div>
-                      </div>
-                    </div> 
+                  
+                    </ul>  -->
                     
-                    
+                    <div  v-for=" product in products">
+                        <!-- <div class="card">
+                                <div class="container">
+                                <h4><b>{{product.name}}</b></h4> 
+                                <p>Details here</p> 
+                                <h4>{{product.price}}</h4>
+                                </div>
+                            </div> -->
+
+                            <div class="container">
+    
+                                    <div id="products" class="row list-group">
+                                        <div class="item  col-xs-4 col-lg-4">
+                                            <div class="thumbnail">
+                                                <img class="group list-group-image" src="http://placehold.it/200x250/000/fff" alt="" />
+                                                <div class="caption">
+                                                    <h4 class="group inner list-group-item-heading">
+                                                        {{product.name}}</h4>
+                                                    <p class="group inner list-group-item-text">
+                                                        Product description...
+                                                        <div class="row">
+                                                        <div class="col-xs-12 col-md-6">
+                                                            <p class="lead">
+                                                           Price  {{product.price}} &#x20B9;
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-6">
+                                                            <a class="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            
+                               
+                    </div>
+                </div> 
             </div>
         </div>
-
     </div>
 
 
