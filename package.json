@@ -30,6 +30,7 @@
   "homepage": "https://github.com/KripaJhaa/shopping_VueSequelizeSql3#readme",
   "dependencies": {
     "express": "^4.16.3",
+    "hsy-vue-dropdown": "0.0.5",
     "sequelize": "^4.37.6",
     "sqlite3": "^4.0.0"
   }

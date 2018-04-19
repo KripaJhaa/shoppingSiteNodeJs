@@ -7,7 +7,7 @@ const db = new Sequelize('shopdb', 'shopper', 'shop_pass', {
         min: 0,
         max: 5,
     },
-    storage: './Shop.db'
+    storage: './shop.db'
 })
 
 ///schema of User Table
@@ -22,6 +22,13 @@ const Vendor = db.define('vendors', {
         allowNull: false,
     }
 })
+
+///seed for list of vendors
+
+// let  objVendor=new Vendor({name:'vendor 1'});objVendor.save()
+// objVendor=new Vendor({name:'vendor 2'});objVendor.save()
+// objVendor=new Vendor({name:'vendor 3'});objVendor.save()
+// objVendor=new Vendor({name:'vendor 4'});objVendor.save()
 
 
 ///schema of Product Table
@@ -53,12 +60,15 @@ const Cart = db.define('carts', {
     }
 })
 
-Product.belongsTo(Vendor)
-Cart.belongsTo(Product)
+Product.hasMany(Vendor)
+Cart.hasMany(Product)
 
 
 db.sync()
-    .then(() => console.log("Database has been synced"))
+    .then(() =>{ 
+        force = true    
+        console.log("Database has been synced")
+    })
     .catch((err) => console.error("Error creating database"))
 
 exports = module.exports = {
