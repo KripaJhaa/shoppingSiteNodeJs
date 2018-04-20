@@ -2,15 +2,14 @@ const route = require('express').Router()
 const product = require('../../db').Product
 
 
+
+
  route.use('addproduct', require('./addproduct'))
- route.use('addtocart', require('./addtocart'))
+ route.use('addtocart', require('./cart'))
 
  let ProductList=[]
 
- route.post('/addProduct',(req,res)=>{
-        console.log("inside add product controller")
-    res.sendFile('/addProduct.html', {root: __dirname })
- })
+
 
 
 route.get('/',(req,res)=>{   
@@ -27,7 +26,6 @@ route.get('/',(req,res)=>{
     })
 
 })
-
 
 
 async function getProducts() {
@@ -53,5 +51,9 @@ async function getProducts() {
 route.post('/',(req,res)=>{
     res.redirect('public/addProduct.html');    
 })
+
+
+
+
 
 exports = module.exports = {route}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Cart</title>
+    <script src="vue.js"></script>
+    <script src="axios.js"></script>
+</head>
+
+<body>
+
+
+    <div id="cartPage" class="container">
+        <h3>My Cart Page</h3>
+
+        <div class="block">
+            <ul v-for="cartProduct in cartProducts">
+                <li>
+                    <span>{{cartProduct.name}}</span>
+                    <span>{{cartProduct.price}}</span>
+                    <span>{{cartProduct.quantity}}</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="block">
+            <a href="index.html">Add More Product to cart</a>
+        </div>
+
+    </div>
+
+</body>
+
+<script>
+    let cartApp = new Vue({
+        el: "#cartPage",
+        data: {
+            cartProducts: []
+        },
+        created: function () {
+            this.fetchCart()
+        },
+        methods: {
+
+            fetchCart() {
+                axios.get('http://localhost:5678/cart')
+                    .then((req, res) => {
+                        cartApp.cartProducts = []
+
+                        let MycartProducts = req.data
+
+                        for (item in MycartProducts) {
+                            cartApp.cartProducts.push({
+                                name: req.data[item].productName,
+                                price: req.data[item].productPrice,
+                                quantity:req.data[item].quantity
+                            })
+                        }
+
+                    })
+            }
+
+
+        }
+
+    })
+</script>
+
+</html>

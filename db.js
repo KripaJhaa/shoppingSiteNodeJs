@@ -55,13 +55,19 @@ const Cart = db.define('carts', {
         autoIncrement: true,
         primaryKey: true
     },
-    quant:{ 
+    productName:{
+        type:Sequelize.STRING,
+    },
+    productPrice:{
+        type:Sequelize.INTEGER
+    },
+    quantity:{ 
         type:Sequelize.INTEGER
     }
 })
 
-Product.hasMany(Vendor)
-Cart.hasMany(Product)
+//Product.hasMany(Vendor)
+//Cart.hasMany(Product)
 
 
 db.sync()
