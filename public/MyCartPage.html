@@ -73,28 +73,34 @@
 
         <!-- end -->
 
-        
-  <!-- Summary -->
-  <section class="container" v-if="cartProducts.length > 0">
-        <!-- <div class="promotion">
+
+        <!-- Summary -->
+        <section class="container" v-if="cartProducts.length > 0">
+            <!-- <div class="promotion">
           <label for="promo-code">Have A Promo Code?</label>
           <input type="text" id="promo-code" v-model="promoCode" /> <button type="button" @click="checkPromoCode"></button>
         </div> -->
-    
-        <div class="summary">
-          <ul>
-            <li>Subtotal <span>{{ subTotal | currencyFormatted }}</span></li>
-            <li v-if="discount > 0">Discount <span>{{ discountPrice | currencyFormatted }}</span></li>
-            <li>Tax </li>
-            <li class="total">Total <span>{{ totalPrice | currencyFormatted }}</span></li>
-          </ul>
-        </div>
-    
-        <div class="checkout">
-          <button type="button">Check Out</button>
-        </div>
-      </section>
-      <!-- End Summary -->
+
+            <div class="summary">
+                <ul>
+                    <li>Subtotal
+                        <span>{{ subTotal | currencyFormatted }}</span>
+                    </li>
+                    <li v-if="discount > 0">Discount
+                        <span>{{ discountPrice | currencyFormatted }}</span>
+                    </li>
+                    <li>Tax </li>
+                    <li class="total">Total
+                        <span>{{ totalPrice | currencyFormatted }}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="checkout">
+                <button type="button">Check Out</button>
+            </div>
+        </section>
+        <!-- End Summary -->
 
 
 
@@ -118,36 +124,36 @@
         },
         computed: {
 
-    itemCount: function() {
-      var count = 0;
+            itemCount: function () {
+                var count = 0;
 
-      for (var i = 0; i < this.cartProducts.length; i++) {
-        count += parseInt(this.cartProducts[i].quantity) || 0;
-      }
+                for (var i = 0; i < this.cartProducts.length; i++) {
+                    count += parseInt(this.cartProducts[i].quantity) || 0;
+                }
 
-      return count;
-    },
-    subTotal: function() {
-      var subTotal = 0;
+                return count;
+            },
+            subTotal: function () {
+                var subTotal = 0;
 
-      for (var i = 0; i < this.cartProducts.length; i++) {
-        subTotal += this.cartProducts[i].quantity * this.cartProducts[i].price;
-      }
+                for (var i = 0; i < this.cartProducts.length; i++) {
+                    subTotal += this.cartProducts[i].quantity * this.cartProducts[i].price;
+                }
 
-      return subTotal;
-    },
-    totalPrice: function() {
-      return this.subTotal ;
-    }
-  },
-  filters: {
-    currencyFormatted: function(value) {
-      return Number(value).toLocaleString('en-US', {
-        style: 'currency', 
-        currency: 'USD'
-      });
-    }
-  },
+                return subTotal;
+            },
+            totalPrice: function () {
+                return this.subTotal;
+            }
+        },
+        filters: {
+            currencyFormatted: function (value) {
+                return Number(value).toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD'
+                });
+            }
+        },
 
 
         methods: {
@@ -173,10 +179,10 @@
                     this.$set(this.products, index, product);
                 }
             },
-            plus(index){
+            plus(index) {
                 this.cartProducts[index].quantity++;
             },
-            minus(index){
+            minus(index) {
                 this.cartProducts[index].quantity--;
             },
 

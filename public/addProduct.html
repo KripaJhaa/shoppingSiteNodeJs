@@ -25,7 +25,7 @@
             <div class="card">
 
                 <div class="col-6">
-                    <form>
+                    <!-- <form>
                         <div class="form-group">
                             <label for="productName">Product Name</label>
                             <input type="text" id="productName" v-model="productName">
@@ -42,11 +42,63 @@
                             <label for="productPrice">Price</label>
                             <input type="number" id="productPrice" v-model="Price">
                         </div>
-                    </form>
+                    </form> -->
 
-                    <button id="btnProductAdd" class="btn btn-secondary" @click="AddToDb">Add</button>
+
+                    <!-- 
+                        form 
+
+                     -->
+
+                    <form>
+                        <div class="row">
+                            <div class="form-group col-md-5 ">
+                                <label for="ProductName">Product Name</label>
+                                <input type="text" class="form-control" id="ProductName" v-model="productName">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-5 ">
+                                <label for="Price">Price</label>
+                                <input type="number" class="form-control" id="Price" v-model="Price">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-5">
+                                <label for="Vendor">Vendor:</label>
+
+                                <select name="listOfVendor" class="form-control" v-model="vendorSelected">
+                                    <option value="Vendor 1">Vendor 1</option>
+                                    <option value="Vendor 2">Vendor 2</option>
+                                    <option value="Vendor 3">Vendor 3</option>
+                                    <option value="Vendor 4">Vendor 4</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group   col-md-7">
+                                <label>
+                                    <input type="checkbox"> Remember me</label>
+                            </div>
+
+
+
+                        </div>
+                    </form>
+                    <button class="btn btn-secondary col-md-8" @click="AddToDb">Add</button>
+
+
+
+
+
+
+
                 </div>
-                <div class="col"></div>
+
             </div>
 
         </div>
@@ -70,13 +122,13 @@
                         .then(function (response) {
                             console.log(" item  saved  done")
                             axios.get('http://localhost:5678/api')
-                            .then((req,res)=>{
-                                window.location.href="index.html"
-                                console.log("redirect back to home")
-                            })
-                            .catch((error)=>{
-                                console.log("Error "+error)
-                            })
+                                .then((req, res) => {
+                                    window.location.href = "index.html"
+                                    console.log("redirect back to home")
+                                })
+                                .catch((error) => {
+                                    console.log("Error " + error)
+                                })
                         })
                 }
             }
