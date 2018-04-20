@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My Cart</title>
+    <link rel="stylesheet" href="cartCss.css">
     <script src="vue.js"></script>
     <script src="axios.js"></script>
 </head>
@@ -16,7 +17,7 @@
     <div id="cartPage" class="container">
         <h3>My Cart Page</h3>
 
-        <div class="block">
+        <!-- <div class="block">
             <ul v-for="cartProduct in cartProducts">
                 <li>
                     <span>{{cartProduct.name}}</span>
@@ -24,7 +25,56 @@
                     <span>{{cartProduct.quantity}}</span>
                 </li>
             </ul>
-        </div>
+
+
+        </div> -->
+
+        <!-- product list-->
+
+        <section class="container">
+            <div v-if="cartProducts.length > 0">
+                <ul class="products">
+                    <li class="row" v-for="(cartProduct, index) in cartProducts">
+                        <div class="col left">
+
+                            <div class="detail">
+                                <div class="name">
+                                    <a href="#">{{ cartProduct.name }}</a>
+                                </div>
+                                <div class="description">discription </div>
+                                <div class="price">{{ cartProduct.price }}</div>
+                            </div>
+                        </div>
+
+
+                        <div class="col right">
+                            <div class="quantity">
+                                <button class="w3-button w3-xlarge w3-black" id="plus1" style="position: absolute; right: 240px; height: 60px;" @click="plus(index)">+</button>
+                                <input type="number" id="product_quantity" class="quantity" step="1" :value="cartProduct.quantity" @input="updateQuantity(index, $event)"
+                                    @blur="checkQuantity(index, $event)" />
+                                <button class="w3-button w3-xlarge w3-black" id="minus1" style="position: absolute; height: 60px;" @click="minus(index)">-</button>
+                            </div>
+
+                            <div class="remove">
+                                <svg @click="removeItem(index)" version="1.1" class="close" xmlns="//www.w3.org/2000/svg" xmlns:xlink="//www.w3.org/1999/xlink"
+                                    x="0px" y="0px" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve">
+                                    <polygon points="38.936,23.561 36.814,21.439 30.562,27.691 24.311,21.439 22.189,23.561 28.441,29.812 22.189,36.064 24.311,38.186 30.562,31.934 36.814,38.186 38.936,36.064 32.684,29.812"></polygon>
+                                </svg>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div v-else style="text-align: center;">
+                <h3>There are no products in your cart.</h3>
+                <button style="font-size: 1.3rem; padding: 10px 30px;">Shopping now</button>
+            </div>
+        </section>
+
+        <!-- end -->
+
+
+
 
         <div class="block">
             <a href="index.html">Add More Product to cart</a>
@@ -44,6 +94,35 @@
             this.fetchCart()
         },
         methods: {
+            removeItem: function (index) {
+                this.cartProducts.splice(index, 1);
+            },
+            updateQuantity: function (index, event) {
+                var value = event.target.value;
+                var product = this.products[index];
+
+                // Minimum quantity is 1, maximum quantity is 100, can left blank to input easily
+                if (value === "" || (parseInt(value) > 0 && parseInt(value) < 100)) {
+                    product.quantity = value;
+                }
+
+                this.$set(this.products, index, product);
+            },
+            checkQuantity: function (index, event) {
+                // Update quantity to 1 if it is empty
+                if (event.target.value === "") {
+                    var product = this.products[index];
+                    product.quantity = 1;
+                    this.$set(this.products, index, product);
+                }
+            },
+            plus(index){
+                this.cartProducts[index].quantity++;
+            },
+            minus(index){
+                this.cartProducts[index].quantity--;
+            },
+
 
             fetchCart() {
                 axios.get('http://localhost:5678/cart')
@@ -56,7 +135,7 @@
                             cartApp.cartProducts.push({
                                 name: req.data[item].productName,
                                 price: req.data[item].productPrice,
-                                quantity:req.data[item].quantity
+                                quantity: req.data[item].quantity
                             })
                         }
 
