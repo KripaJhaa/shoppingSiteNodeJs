@@ -31,21 +31,11 @@
                 <button class="btn button-blue" @click="addProduct">Add Product</button>
             </div>
             <div class="row" id="product-list">
-                <!-- <ul v-for=" product in products">
-                        <li><span>{{product.name}}</span>&nbsp;<span>{{product.price}}</span></li>
-                  
-                    </ul>  -->
+                
                     <div v-if="products==''">
                         <h1>No Product Yet Added Go to Add Product Now</h1>
                     </div>
                 <div v-for=" product in products">
-                    <!-- <div class="card">
-                                <div class="container">
-                                <h4><b>{{product.name}}</b></h4> 
-                                <p>Details here</p> 
-                                <h4>{{product.price}}</h4>
-                                </div>
-                            </div> -->
 
                     <div class="container">
 
@@ -81,61 +71,7 @@
     </div>
 
 
-    <script>
-        let app = new Vue({
-            el: '#app',
-            data: {
-                selectedProduct:'',
-                products: []
-            },
-            created: function () {
-                this.load()
-            },
-            methods: {
-                addProduct() {
-
-                    alert("hello")
-                    window.location.href = "addProduct.html"
-                },
-                load() {
-
-                    axios.get('http://localhost:5678/api')
-                        .then((req, res) => {
-                            var products = req.data
-                            app.products = []
-                            for (items in products) {
-                                app.products.push({
-                                    name: req.data[items].name,
-                                    price: req.data[items].price
-                                })
-                            }
-                        })
-                        .catch((err) => {
-                            console.log("Error " + err)
-                        })
-                },
-                addToCart(product){
-                    axios.post('http://localhost:5678/cart/addToCart',{
-                            name:product.name,
-                            price: parseFloat(product.price)
-                    }
-                        )
-                    .then((req,res)=>{
-
-                        console.log(" check"+document.getElementById("productName").value)
-
-                        window.location.href = "MyCartPage.html"
-                    })
-                    .catch((err)=>{
-                        console.log("Error Occured "+err)
-                    })
-                }
-
-
-
-            }
-        })
-    </script>
+    <script  src="mainVue.js"></script>
 </body>
 
 </html>

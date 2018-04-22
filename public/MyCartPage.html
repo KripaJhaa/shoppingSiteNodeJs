@@ -17,19 +17,7 @@
     <div id="cartPage" class="container">
         <h3>My Cart Page</h3>
 
-        <!-- <div class="block">
-            <ul v-for="cartProduct in cartProducts">
-                <li>
-                    <span>{{cartProduct.name}}</span>
-                    <span>{{cartProduct.price}}</span>
-                    <span>{{cartProduct.quantity}}</span>
-                </li>
-            </ul>
-
-
-        </div> -->
-
-        <!-- product list-->
+        
 
         <section class="container">
             <div v-if="cartProducts.length > 0">
@@ -76,10 +64,7 @@
 
         <!-- Summary -->
         <section class="container" v-if="cartProducts.length > 0">
-            <!-- <div class="promotion">
-          <label for="promo-code">Have A Promo Code?</label>
-          <input type="text" id="promo-code" v-model="promoCode" /> <button type="button" @click="checkPromoCode"></button>
-        </div> -->
+            
 
             <div class="summary">
                 <ul>
@@ -113,102 +98,6 @@
 
 </body>
 
-<script>
-    let cartApp = new Vue({
-        el: "#cartPage",
-        data: {
-            cartProducts: []
-        },
-        created: function () {
-            this.fetchCart()
-        },
-        computed: {
-
-            itemCount: function () {
-                var count = 0;
-
-                for (var i = 0; i < this.cartProducts.length; i++) {
-                    count += parseInt(this.cartProducts[i].quantity) || 0;
-                }
-
-                return count;
-            },
-            subTotal: function () {
-                var subTotal = 0;
-
-                for (var i = 0; i < this.cartProducts.length; i++) {
-                    subTotal += this.cartProducts[i].quantity * this.cartProducts[i].price;
-                }
-
-                return subTotal;
-            },
-            totalPrice: function () {
-                return this.subTotal;
-            }
-        },
-        filters: {
-            currencyFormatted: function (value) {
-                return Number(value).toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD'
-                });
-            }
-        },
-
-
-        methods: {
-            removeItem: function (index) {
-                this.cartProducts.splice(index, 1);
-            },
-            updateQuantity: function (index, event) {
-                var value = event.target.value;
-                var product = this.products[index];
-
-                // Minimum quantity is 1, maximum quantity is 100, can left blank to input easily
-                if (value === "" || (parseInt(value) > 0 && parseInt(value) < 100)) {
-                    product.quantity = value;
-                }
-
-                this.$set(this.products, index, product);
-            },
-            checkQuantity: function (index, event) {
-                // Update quantity to 1 if it is empty
-                if (event.target.value === "") {
-                    var product = this.products[index];
-                    product.quantity = 1;
-                    this.$set(this.products, index, product);
-                }
-            },
-            plus(index) {
-                this.cartProducts[index].quantity++;
-            },
-            minus(index) {
-                this.cartProducts[index].quantity--;
-            },
-
-
-            fetchCart() {
-                axios.get('http://localhost:5678/cart')
-                    .then((req, res) => {
-                        cartApp.cartProducts = []
-
-                        let MycartProducts = req.data
-
-                        for (item in MycartProducts) {
-                            cartApp.cartProducts.push({
-                                name: req.data[item].productName,
-                                price: req.data[item].productPrice,
-                                quantity: req.data[item].quantity
-                            })
-                        }
-
-                    })
-            }
-
-
-        }
-
-    })
-</script>
+<script src="addProductVue.js"></script>
 
 </html>
