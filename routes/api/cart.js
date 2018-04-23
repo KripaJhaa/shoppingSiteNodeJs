@@ -20,43 +20,81 @@ route.get('/',(req,res)=>{
 async function  getList() {
 
     let productList= await carts.findAll({
-        attributes:['productName','productPrice','quantity']
+        include:[{
+            all:true
+        }]
 })  
 
+//console.log("data fetch :: "+productList)
+
 cartList=[]
+
 productList.forEach(element => {
-
-    console.log(element.productName+" <> "+element.productPrice+" ")
-
+    //console.log("say : "+element.product.price+" "+element.quantity)
     cartList.push({
-        productName:element.productName,
-        productPrice:element.productPrice,
-        quantity:element.quantity
+        productName:element.product.name,
+        productPrice:element.product.price,
+        quantity:element.quantity,
+        productId:element.product.id
     })
 });
+
 }
 
+
+route.post('/minusProduct',(req,res)=>{
+    console.log("inside cart post call"+req.body.name+" <> "+req.body.price+" "+req.body.productId)
+    
+    carts.findOne({
+        where:{
+          productId: parseInt(req.body.productId) 
+        }
+    })
+    .then((cart)=>{
+        if(cart && cart.quantity>0){
+            cart.quantity--;
+            cart.save()
+        }
+        else{
+            cart.destroy({
+                where:{
+                    productId:parseInt(req.body.productId)
+                }
+            });
+        }
+    })
+})
 
 
 
 
 route.post('/addToCart',(req,res)=>{
-    console.log("inside cart post call"+req.body.name+" <> "+req.body.price)
-    
+    console.log("inside cart post call"+req.body.name+" <> "+req.body.price+" "+req.body.productId)
 
-    const productCartAdd= new carts({
-        productName:req.body.name,
-        productPrice:parseFloat(req.body.price),
-        quantity:1
+    carts.findOne({
+        where:{
+          productId: parseInt(req.body.productId) 
+        }
     })
-
-    productCartAdd.save()
-
-
+    .then((cart)=>{
+        if(cart){
+            cart.quantity++
+            cart.save()
+        }
+        else{
+            const productCartAdd= new carts({
+                productId:parseInt(req.body.productId),
+                quantity:1
+            })
+            productCartAdd.save()   
+        }
+    })
     res.json({
-        success: true,
-        id: productCartAdd.length - 1
+        success: true
     })
 })
+
+
+
 
 exports = module.exports = route

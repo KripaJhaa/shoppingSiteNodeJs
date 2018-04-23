@@ -10,7 +10,7 @@ route.get('/',(req,res)=>{
     getListOfVendor()
     .then(()=>{
         console.log("list of vendor fetched")
-        res.json(listOfVendor)
+        res.status(200).json(vendors)
     })
     .catch((err)=>{
         console.log("Error Occured"+err)
@@ -21,11 +21,13 @@ route.get('/',(req,res)=>{
 async function getListOfVendor() {
     
     const listOfVendor= await vendor.findAll({
-        attributes:['name']  
     })
-
+    this.vendors=[]
     listOfVendor.forEach(element => {
-        vendors.push({name:element.name})
+        vendors.push({
+            name:element.name,
+            id: element.id
+        })
     });
 
 }
@@ -33,11 +35,11 @@ async function getListOfVendor() {
 
 route.post('/',(req,res)=>{
     console.log("Post called Congo")
-
+    console.log("Vendor id selected "+req.body.vendorId)
     const productAdd= new product({
         name:req.body.name,
-        price:parseFloat(req.body.price)
-              
+        price:parseFloat(req.body.price),
+        vendorId:parseInt(req.body.vendorId)              
     })
 
     productAdd.save()

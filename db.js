@@ -25,7 +25,7 @@ const Vendor = db.define('vendors', {
 
 ///seed for list of vendors
 
-// let  objVendor=new Vendor({name:'vendor 1'});objVendor.save()
+//  let  objVendor=new Vendor({name:'vendor 1'});objVendor.save()
 // objVendor=new Vendor({name:'vendor 2'});objVendor.save()
 // objVendor=new Vendor({name:'vendor 3'});objVendor.save()
 // objVendor=new Vendor({name:'vendor 4'});objVendor.save()
@@ -55,19 +55,13 @@ const Cart = db.define('carts', {
         autoIncrement: true,
         primaryKey: true
     },
-    productName:{
-        type:Sequelize.STRING,
-    },
-    productPrice:{
-        type:Sequelize.INTEGER
-    },
     quantity:{ 
         type:Sequelize.INTEGER
     }
 })
 
-//Product.hasMany(Vendor)
-//Cart.hasMany(Product)
+Product.belongsTo(Vendor)
+Cart.belongsTo(Product)
 
 
 db.sync()

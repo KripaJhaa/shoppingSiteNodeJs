@@ -9,15 +9,13 @@
     <link rel="stylesheet" href="contents/cartCss.css">
     <script src="script/vue.js"></script>
     <script src="script/axios.js"></script>
+    
 </head>
 
 <body>
 
-
     <div id="cartPage" class="container">
         <h3>My Cart Page</h3>
-
-
 
         <section class="container">
             <div v-if="cartProducts.length > 0">
@@ -29,7 +27,7 @@
                                 <div class="name">
                                     <a href="#">{{ cartProduct.name }}</a>
                                 </div>
-                                <div class="description">discription </div>
+                               
                                 <div class="price">{{ cartProduct.price }}</div>
                             </div>
                         </div>
@@ -59,7 +57,7 @@
             </div>
         </section>
 
-        <!-- end -->
+        <!-- end
 
 
         <!-- Summary -->
@@ -71,9 +69,7 @@
                     <li>Subtotal
                         <span>{{ subTotal | currencyFormatted }}</span>
                     </li>
-                    <li v-if="discount > 0">Discount
-                        <span>{{ discountPrice | currencyFormatted }}</span>
-                    </li>
+                    
                     <li>Tax </li>
                     <li class="total">Total
                         <span>{{ totalPrice | currencyFormatted }}</span>
@@ -85,19 +81,20 @@
                 <button type="button">Check Out</button>
             </div>
         </section>
-        <!-- End Summary -->
-
+        
+        End Summary 
 
 
 
         <div class="block">
             <a href="index.html">Add More Product to cart</a>
         </div>
+         
 
     </div>
-
+    <script src="script/MyCartVue.js"></script>
 </body>
 
-<script src="script/addProductVue.js"></script>
+
 
 </html>

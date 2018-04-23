@@ -9,8 +9,6 @@ let app = new Vue({
     },
     methods: {
         addProduct() {
-
-            alert("hello")
             window.location.href = "addProduct.html"
         },
         load() {
@@ -22,7 +20,8 @@ let app = new Vue({
                     for (items in products) {
                         app.products.push({
                             name: req.data[items].name,
-                            price: req.data[items].price
+                            price: req.data[items].price,
+                            productId:req.data[items].productId
                         })
                     }
                 })
@@ -33,18 +32,19 @@ let app = new Vue({
         addToCart(product){
             axios.post('http://localhost:5678/cart/addToCart',{
                     name:product.name,
-                    price: parseFloat(product.price)
+                    price: parseFloat(product.price),
+                    productId:parseInt(product.productId)
             }
-                )
+            )
             .then((req,res)=>{
-
-                console.log(" check"+document.getElementById("productName").value)
-
                 window.location.href = "MyCartPage.html"
             })
             .catch((err)=>{
                 console.log("Error Occured "+err)
             })
+        },
+        myCart(){
+            window.location.href = "MyCartPage.html"
         }
 
 

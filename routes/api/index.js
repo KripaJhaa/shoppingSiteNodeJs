@@ -6,10 +6,10 @@ const product = require('../../db').Product
 
  route.use('addproduct', require('./addproduct'))
  route.use('addtocart', require('./cart'))
+ route.use('addvendor', require('./addvendor'))
+
 
  let ProductList=[]
-
-
 
 
 route.get('/',(req,res)=>{   
@@ -31,17 +31,21 @@ route.get('/',(req,res)=>{
 async function getProducts() {
 
  let productList= await product.findAll({
-            attributes:['name','price']
+            include:{
+                all:true
+            }
     })  
 
     ProductList=[]
     productList.forEach(element => {
     
-        console.log(element.name+" <> "+element.price+" ")
+        console.log(element.name+" <> "+element.price+" <> "+element.id)
     
         ProductList.push({
             name:element.name,
             price:element.price,
+            vendorId:element.vendorId,
+            productId:element.id
         })
     });
 }

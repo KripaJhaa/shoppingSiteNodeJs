@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Add Product</title>
-    <script src="vue.js"></script>
-    <script src="axios.js"></script>
+    <script src="script/vue.js"></script>
+    <script src="script/axios.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
         crossorigin="anonymous"></script>
@@ -22,34 +22,9 @@
     <div id="productApp">
         <div class="p-4">
             <h3 class="text-center">Add Product</h3>
-            <div class="card">
+            <div class="card p-2">
 
                 <div class="col-6">
-                    <!-- <form>
-                        <div class="form-group">
-                            <label for="productName">Product Name</label>
-                            <input type="text" id="productName" v-model="productName">
-                        </div>
-                        <div class="form-group">
-                            <select name="listOfVendor" v-model="vendorSelected">
-                                <option value="Vendor 1">Vendor 1</option>
-                                <option value="Vendor 2">Vendor 2</option>
-                                <option value="Vendor 3">Vendor 3</option>
-                                <option value="Vendor 4">Vendor 4</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="productPrice">Price</label>
-                            <input type="number" id="productPrice" v-model="Price">
-                        </div>
-                    </form> -->
-
-
-                    <!-- 
-                        form 
-
-                     -->
-
                     <form>
                         <div class="row">
                             <div class="form-group col-md-5 ">
@@ -67,12 +42,8 @@
                         <div class="row">
                             <div class="form-group col-md-5">
                                 <label for="Vendor">Vendor:</label>
-
-                                <select name="listOfVendor" class="form-control" v-model="vendorSelected">
-                                    <option value="Vendor 1">Vendor 1</option>
-                                    <option value="Vendor 2">Vendor 2</option>
-                                    <option value="Vendor 3">Vendor 3</option>
-                                    <option value="Vendor 4">Vendor 4</option>
+                                <select name="list-Of-Vendor" class="form-control" v-model="vendorId" >
+                                    <option v-for="vendor in vendors" v-bind:value="vendor.id" >{{vendor.name}}</option>             
                                 </select>
 
                             </div>
@@ -88,13 +59,6 @@
                         </div>
                     </form>
                     <button class="btn btn-secondary col-md-8" @click="AddToDb">Add</button>
-
-
-
-
-
-
-
                 </div>
 
             </div>
@@ -102,37 +66,7 @@
         </div>
     </div>
 
-    <script>
-        let app = new Vue({
-            el: '#productApp',
-            data: {
-                productName: '',
-                vendorSelected: '',
-                Price: ''
-            },
-            methods: {
-                AddToDb() {
-                    axios.post('http://localhost:5678/addproduct', {
-                            name: app.productName,
-                            vendorName: app.vendorSelected,
-                            price: app.Price
-                        })
-                        .then(function (response) {
-                            console.log(" item  saved  done")
-                            axios.get('http://localhost:5678/api')
-                                .then((req, res) => {
-                                    window.location.href = "index.html"
-                                    console.log("redirect back to home")
-                                })
-                                .catch((error) => {
-                                    console.log("Error " + error)
-                                })
-                        })
-                }
-            }
-
-        })
-    </script>
+    <script src="script/addProductVue.js"> </script>
 </body>
 
 

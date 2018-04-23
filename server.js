@@ -10,6 +10,6 @@ app.use('/', express.static(path.join(__dirname, 'public')))
 app.use('/api', require('./routes/api').route)
 app.use('/addproduct',require('./routes/api/addproduct'))
 app.use('/cart',require('./routes/api/cart'))
+app.use('/addvendor',require('./routes/api/addvendor'))
 
 app.listen(5678, () => console.log('Server started at http://localhost:5678'))
-
