@@ -42,7 +42,20 @@ let cartApp = new Vue({
 
     methods: {
         removeItem: function (index) {
-            this.cartProducts.splice(index, 1);
+            
+            axios.post('http://localhost:5678/cart/removeProduct', {
+                    productId: parseInt(this.cartProducts[index].productId)
+                })
+                .then((req, res) => {
+                    this.cartProducts.splice(index, 1)
+                    window.location.href = "MyCartPage.html"
+                })
+                .catch((err) => {
+                    console.log("Error Occured " + err)
+                })
+
+                
+
         },
         updateQuantity: function (index, event) {
             var value = event.target.value;
@@ -65,50 +78,48 @@ let cartApp = new Vue({
         },
         plus(index) {
             this.cartProducts[index].quantity++;
-                   
-            axios.post('http://localhost:5678/cart/addToCart',{
-                        productId:parseInt(this.cartProducts[index].productId)
-                }
-                )
-                .then((req,res)=>{
+
+            axios.post('http://localhost:5678/cart/addToCart', {
+                    productId: parseInt(this.cartProducts[index].productId)
+                })
+                .then((req, res) => {
                     window.location.href = "MyCartPage.html"
                 })
-                .catch((err)=>{
-                    console.log("Error Occured "+err)
+                .catch((err) => {
+                    console.log("Error Occured " + err)
                 })
         },
         minus(index) {
             this.cartProducts[index].quantity--;
 
-            axios.post('http://localhost:5678/cart/minusProduct',{
-                        productId:parseInt(this.cartProducts[index].productId)
-                }
-                )
-                .then((req,res)=>{
+            axios.post('http://localhost:5678/cart/minusProduct', {
+                    productId: parseInt(this.cartProducts[index].productId)
+                })
+                .then((req, res) => {
                     window.location.href = "MyCartPage.html"
                 })
-                .catch((err)=>{
-                    console.log("Error Occured "+err)
+                .catch((err) => {
+                    console.log("Error Occured " + err)
                 })
 
         },
         fetchCart() {
-            
+
             axios.get('http://localhost:5678/cart')
                 .then((req, res) => {
                     cartApp.cartProducts = []
 
                     let MycartProducts = req.data
-                    
+
                     for (item in MycartProducts) {
-                        
+
                         //alert(req.data[item].productPrice)
 
                         cartApp.cartProducts.push({
                             name: req.data[item].productName,
                             price: req.data[item].productPrice,
                             quantity: req.data[item].quantity,
-                            productId:req.data[item].productId
+                            productId: req.data[item].productId
                         })
                     }
 
