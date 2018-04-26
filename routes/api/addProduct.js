@@ -21,7 +21,8 @@ route.get('/', (req, res) => {
 async function getListOfVendor() {
 
     const listOfVendor = await vendor.findAll({})
-    this.vendors = []
+    vendors = []
+    console.log("servarth "+listOfVendor)
     listOfVendor.forEach(element => {
         vendors.push({
             name: element.name,

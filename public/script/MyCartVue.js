@@ -80,7 +80,7 @@ let cartApp = new Vue({
             this.cartProducts[index].quantity++;
 
             axios.post('http://localhost:5678/cart/addToCart', {
-                    productId: parseInt(this.cartProducts[index].productId)
+                    productId: parseInt(this.cartProducts[index].productId)          
                 })
                 .then((req, res) => {
                     window.location.href = "MyCartPage.html"
@@ -104,8 +104,8 @@ let cartApp = new Vue({
 
         },
         fetchCart() {
-
-            axios.get('http://localhost:5678/cart')
+                
+            axios.get('/cart')
                 .then((req, res) => {
                     cartApp.cartProducts = []
 
