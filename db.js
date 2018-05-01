@@ -8,6 +8,7 @@ const db = new Sequelize('shopdb', 'shopper', 'shop_pass', {
         max: 5,
     },
       storage: './shop.db'
+      ,logging:false
 })
 
 ///schema of User Table

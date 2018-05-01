@@ -48,7 +48,7 @@ let app = new Vue({
                     name: product.name,
                     price: parseFloat(product.price),
                     productId: parseInt(product.productId),
-                    userId: parseInt(app.userId)
+                   // userId: parseInt(app.userId)
                 })
                 .then((req, res) => {
                     if (req.data.message) {
@@ -76,10 +76,10 @@ let app = new Vue({
             window.location.href = "signup.html"
         },
         logout(){
+            
             axios.post('/api/logout')
                 .then((req,res)=>{
                     app.userId=''
-
                     console.log("Logging out....")
                     window.location.href = "index.html"
                 })  

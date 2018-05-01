@@ -26,8 +26,8 @@ route.get('/', (req, res) => {
 
 async function getList(req) {
     //console.log("Inside getlist...."+req.body)
-    let uId = parseInt(req.session.passport.user)
-
+    let uId = parseInt(req.user.id)
+    
     let selectedCartList = await carts.findAll({
         where: {
             userId: uId
@@ -72,7 +72,7 @@ route.post('/minusProduct', (req, res) => {
             }
         })
         .then((cart) => {
-            if (cart && cart.quantity > 0) {
+            if (cart && cart.quantity > 1) {
                 cart.quantity--;
                 cart.save()
             } else {
@@ -122,14 +122,13 @@ route.post('/removeProduct', (req, res) => {
 })
 
 route.post('/addToCart', (req, res) => {
-    console.log("cart check " + req.body.userId)
-
-
+    
     //console.log("Inside AddToCart post call: " + req.body.name + " <> " + req.body.price + " " + req.body.productId)
     // console.log("inside cart "+req.body.userId)
-    if (req.body.userId) {
+    let uId = parseInt(req.user.id)
+    console.log("cart check " + req.user.id)
+    if (uId) {
 
-        let uId = parseInt(req.body.userId)
         carts.findOne({
                 where: {
                     productId: parseInt(req.body.productId),

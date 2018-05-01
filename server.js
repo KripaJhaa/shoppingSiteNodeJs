@@ -47,21 +47,11 @@ route.post('/signup', (req, res) => {
 })
 
 route.post('/signin', passport.authenticate('local', {    
-    failureRedirect: '/login.html',
+    failureRedirect: '/login.html/error=123',
     successRedirect: '/index.html'
 }))
 
-route.get('/profile', (req, res) => {
-    // Available to only logged in people
-    // Data is different (each user sees own profile)
-    console.log(req.user)
-    if (req.user) {
-        res.json(req.user)
-    } else {
-        res.send("YOU ARE NOT LOGGED IN")
-    }
 
-})
 
 
 route.use('/',(req,res)=>{

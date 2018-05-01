@@ -80,10 +80,12 @@ let cartApp = new Vue({
             this.cartProducts[index].quantity++;
 
             axios.post('http://localhost:5678/cart/addToCart', {
-                    productId: parseInt(this.cartProducts[index].productId)          
+                    productId: parseInt(this.cartProducts[index].productId)  
+                    // userId:parseInt()        
                 })
                 .then((req, res) => {
-                    window.location.href = "MyCartPage.html"
+                    // window.location.href = "MyCartPage.html"
+                    this.fetchCart()
                 })
                 .catch((err) => {
                     console.log("Error Occured " + err)
@@ -96,7 +98,8 @@ let cartApp = new Vue({
                     productId: parseInt(this.cartProducts[index].productId)
                 })
                 .then((req, res) => {
-                    window.location.href = "MyCartPage.html"
+                   // window.location.href = "MyCartPage.html"
+                   this.fetchCart()
                 })
                 .catch((err) => {
                     console.log("Error Occured " + err)
@@ -124,6 +127,9 @@ let cartApp = new Vue({
                     }
 
                 })
+        },
+        checkout(){
+            window.location.href="index.html"
         }
 
 
