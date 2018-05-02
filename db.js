@@ -7,7 +7,8 @@ const db = new Sequelize('shopdb', 'shopper', 'shop_pass', {
         min: 0,
         max: 5,
     },
-    storage: './shop.db'
+      storage: './shop.db'
+      ,logging:false
 })
 
 ///schema of User Table
@@ -60,9 +61,22 @@ const Cart = db.define('carts', {
     }
 })
 
+const User = db.define('user', {
+    username: {
+        type: Sequelize.STRING(30),
+        unique: true,
+        allowNull: false,
+    },
+    password: {
+        type: Sequelize.STRING,
+        allowNull: false
+    }
+})
+
+
 Product.belongsTo(Vendor)
 Cart.belongsTo(Product)
-
+Cart.belongsTo(User)
 
 db.sync()
     .then(() =>{ 
@@ -71,8 +85,9 @@ db.sync()
     })
     .catch((err) => console.error("Error creating database"))
 
-exports = module.exports = {
+exports = module.exports = {  
     Product,
     Vendor,
     Cart,
+    User
 }

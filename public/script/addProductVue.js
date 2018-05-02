@@ -1,5 +1,5 @@
 let app = new Vue({
-    el: '#productApp',
+    el: '#app',
     data: {
         productName: '',
         vendorId: '',
@@ -7,6 +7,7 @@ let app = new Vue({
         vendors: []
     },
     created: function () {
+        this.vendors = []
         this.fetch()
     },
     methods: {
@@ -30,20 +31,23 @@ let app = new Vue({
                 })
         },
         fetch() {
-            axios.get('/addproduct', (req, res) => {
-                    console.log("vendor fetched..")
-                })
+            
+
+            axios.get('/addproduct')
                 .then((req, res) => {
                     let listOfVendor = req.data
-
+                    console.log("here "  + listOfVendor)
                     app.vendors = []
-                    for (item in listOfVendor) {
-                        console.log("vendor get id " + req.data[item].id)
-                        app.vendors.push({
-                            name: req.data[item].name,
-                            id: req.data[item].id
-                        })
-                    }
+                    app.vendors = listOfVendor
+                    console.log("client "+app.vendors)
+                    // 
+                    // for (item in listOfVendor) {
+                    //     console.log("vendor get id " + req.data[item].id)
+                    //     app.vendors.push({
+                    //         name: req.data[item].name,
+                    //         id: req.data[item].id
+                    //     })
+                    // }
 
 
                 })
