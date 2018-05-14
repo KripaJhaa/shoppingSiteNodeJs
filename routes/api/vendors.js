@@ -9,9 +9,17 @@ route.get('/',(req,res)=>{
     let obj= new vendor({
          name:req.query.name
     })
-
     obj.save()
 })
 
+route.get('/vendorlist', (req, res) => {
+    vendor.findAll({})
+   .then((vendors) => {
+           res.status(200).json(vendors)
+       })
+       .catch((err) => {
+           console.log("Error Occured" + err)
+       })
+})
 
 exports = module.exports = route

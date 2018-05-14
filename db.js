@@ -7,7 +7,8 @@ const db = new Sequelize('shopdb', 'shopper', 'shop_pass', {
         min: 0,
         max: 5,
     },
-      storage: './shop.db'
+      storage: './shop.db',
+      logging:false
 })
 
 ///schema of User Table
@@ -22,14 +23,6 @@ const Vendor = db.define('vendors', {
         allowNull: false,
     }
 })
-
-///seed for list of vendors
-
-//  let  objVendor=new Vendor({name:'vendor 1'});objVendor.save()
-// objVendor=new Vendor({name:'vendor 2'});objVendor.save()
-// objVendor=new Vendor({name:'vendor 3'});objVendor.save()
-// objVendor=new Vendor({name:'vendor 4'});objVendor.save()
-
 
 ///schema of Product Table
 const Product = db.define('products', {
